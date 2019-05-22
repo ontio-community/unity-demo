@@ -57,7 +57,7 @@ public class invoke : MonoBehaviour, IPointerDownHandler
             };
         var arg2 = new JObject {
                 { "name", "arg1-str" },
-                { "value", "hello" }
+                { "value", "String:hello" }
             };
         var arg3 = new JObject {
                 { "name", "arg2-int" },
@@ -71,7 +71,7 @@ public class invoke : MonoBehaviour, IPointerDownHandler
         JObject invokeConfig = new JObject {
                 { "contractHash", "16edbe366d1337eb510c2ff61099424c94aeef02" },
                 { "functions", new JArray() { function } },
-                { "payer", "AUr5QUfeBADq6BMY6Tp5yuMsUNGpsD7nLZ"},
+                { "payer", null},
                 { "gasLimit", 20000 },
                 { "gasPrice", 500 }
             };
