@@ -99,8 +99,6 @@ public class invoke : MonoBehaviour, IPointerDownHandler
         AndroidJavaClass Uri = new AndroidJavaClass("android.net.Uri");
         AndroidJavaObject intent = new AndroidJavaObject("android.content.Intent", "android.intent.action.VIEW", Uri.CallStatic<AndroidJavaObject>("parse", "ontprovider://ont.io?param=" + encode));
 
-        //intent.Call<AndroidJavaObject>("addCategory", "android.intent.category.DEFAULT");
-        //intent.Call<AndroidJavaObject>("setData", Uri.CallStatic<AndroidJavaObject>("parse", "ontprovider://ont.io?param=" + encode));
         AndroidJavaObject currentActivity = UnityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
         currentActivity.Call("startActivity", intent);
 
