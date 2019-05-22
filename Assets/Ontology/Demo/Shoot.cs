@@ -14,7 +14,7 @@ using Newtonsoft.Json.Linq;
 public class Shoot : MonoBehaviour
 {
     public GameObject bullet;
-    public GameObject text;
+    //public GameObject text;
     public float speed = 5;
     private static readonly string _node = "http://polaris1.ont.io:20334"; //Ontology TestNet
 
