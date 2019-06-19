@@ -64,7 +64,8 @@ public class login : MonoBehaviour, IPointerDownHandler
         };
 
         string encode = "";
-        byte[] bytes = System.Text.Encoding.GetEncoding("utf-8").GetBytes(code.ToString());
+        string uriEncode = System.Uri.EscapeUriString(code.ToString());
+        byte[] bytes = System.Text.Encoding.GetEncoding("utf-8").GetBytes(uriEncode);
         try
         {
             encode = Convert.ToBase64String(bytes);

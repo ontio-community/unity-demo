@@ -50,6 +50,8 @@ public class invoke : MonoBehaviour, IPointerDownHandler
        
         */
         //http://www.manew.com/blog-50742-37586.html
+
+        /*
         var jarray = new JArray();
         var arg1 = new JObject {
                 { "name", "arg0-list" },
@@ -82,16 +84,58 @@ public class invoke : MonoBehaviour, IPointerDownHandler
                 { "id", "1234" },
                 { "params", new JObject { { "invokeConfig", invokeConfig } } }
             };
+        */
+        var jarray = new JArray();
+        var arg1 = new JObject {
+                { "name", "arg0-str" },
+                { "value", "String:hello" }
+            };
+        var arg2 = new JObject {
+                { "name", "arg1-str" },
+                { "value", "Address:%address"}  //wallet will replace this address
+            };
+        var arg3 = new JObject {
+                { "name", "arg2-str" },
+                { "value", "Address:ALmvtNCdHFnHhxdCwaWU39U1uUvBqaPW1z"}
+            };
+        var arg4 = new JObject {
+                { "name", "arg3-int" },
+                { "value", 500000000 }
+            };
+
+        jarray.Add(arg1);
+        jarray.Add(arg2);
+        jarray.Add(arg3);
+        jarray.Add(arg4);
+
+        JObject function = new JObject { { "operation", "transferOng" }, { "args", jarray } };
+        JObject invokeConfig = new JObject {
+                { "contractHash", "8b344a43204e60750e7ccc8c1b708a67f88f2c43" },//16edbe366d1337eb510c2ff61099424c94aeef02 
+                { "functions", new JArray() { function } },
+                { "payer", "%address"},  //wallet will replace this address
+                { "gasLimit", 20000 },
+                { "gasPrice", 500 }
+            };
+
+        JObject invokeAction = new JObject {
+                { "action", "invoke" },
+                { "version", "v1.0.0" },
+                { "id", "1234" },
+                { "params", new JObject { { "invokeConfig", invokeConfig } } }
+            };
 
         string encode = "";
-        byte[] bytes = System.Text.Encoding.GetEncoding("utf-8").GetBytes(code.ToString());
+        
+        string uriEncode = System.Uri.EscapeUriString(invokeAction.ToString());
+        //Debug.Log(uriEncode);
+        byte[] bytes = System.Text.Encoding.GetEncoding("utf-8").GetBytes(uriEncode);
         try
         {
             encode = Convert.ToBase64String(bytes);
         }
         catch
         {
-            encode = code.ToString();
+            encode = invokeAction.ToString();
         }
 
         AndroidJavaClass UnityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
